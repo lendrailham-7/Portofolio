@@ -1,6 +1,6 @@
 {
   "profile": {
-    "name": "Peserta CODEX",
+    "name": "Lendra Ilham Ramadan",
     "role": "Mahasiswa Teknik Informatika UKRI",
     "bio": "Halo, saya mahasiswa teknik Informatika universitas kebangsaan republik indonesia. Selamat datang di website portolio saya, contact me if u needed any information!"
   },
@@ -13,12 +13,12 @@
   "links": [
     {
       "title": "WhatsApp Me",
-      "url": "https://wa.me/628123456789",
+      "url": "https://wa.me/6281572113813",
       "icon": "fa-brands fa-whatsapp"
     },
     {
       "title": "Instagram",
-      "url": "https://instagram.com/hmif_ukri",
+      "url": "https://instagram.com/lendraramadan",
       "icon": "fa-brands fa-instagram"
     },
     {
@@ -28,8 +28,13 @@
     },
     {
       "title": "LinkedIn Profile",
-      "url": "https://linkedin.com/in/himpunan-mahasiswa-teknik-informatika-hmif-ukri",
+      "url": "https://linkedin.com/in/lendra-ilham",
       "icon": "fa-brands fa-linkedin"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/lendrailham-7",
+      "icon": "fa-brands fa-github"
     }
   ]
 }

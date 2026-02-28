@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portofolio + Tanya Codex</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <base target="_blank">
+</head>
+
+  <body>
+    <div class="container">
+      <!-- PROFIL -->
+      <header class="card header">
+        <img class="avatar" src="./image/logo_metaforsa.png" alt="Foto Profil" />
+        <div>
+          <h1 id="name" class="name">Lendra Ilham Ramadan</h1>
+          <p id="role" class="muted">Frontend Learner</p>
+          <p id="bio" class="muted">Belajar HTML + CSS, lalu integrasi FE ↔ BE.</p>
+        </div>
+      </header>
+
+      <!-- LINKS -->
+      <section class="card">
+        <h2>Links</h2>
+        <div id="links" class="grid links">
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section class="card">
+        <h2>Skills</h2>
+        <div id="skills" class="grid skills">
+        </div>
+      </section>
+
+      <!-- GUESTBOOK -->
+      <section class="card">
+        <h2>Tinggalkan Pesan</h2>
+        <form id="guestbook-form" class="form">
+          <input id="gb-name" class="input" type="text" placeholder="Nama" required />
+          <textarea id="gb-message" class="input textarea" placeholder="Pesan..." required></textarea>
+          <button class="btn green" type="submit">Kirim Pesan</button>
+        </form>
+        <div id="messages-list" class="messages"></div>
+      </section>
+
+      <footer class="footer muted">
+        <small>© 2026 Dibuat dengan ❤️ di Codex</small>
+      </footer>
+    </div>
+
+    <!-- FLOATING CHAT WIDGET -->
+    <div class="chat-widget" id="chat-widget">
+      <!-- Chat Button -->
+      <button class="chat-toggle" id="chat-toggle" aria-label="Buka chat">
+        <i class="fas fa-robot"></i>
+        <span class="chat-label">Tanya Codex</span>
+        <span class="notification-badge" id="notif-badge">1</span>
+      </button>
+
+      <!-- Chat Window -->
+      <div class="chat-window" id="chat-window">
+        <div class="chat-header">
+          <div class="chat-title">
+            <i class="fas fa-robot"></i>
+            <span>Codex AI</span>
+          </div>
+          <button class="chat-close" id="chat-close" aria-label="Tutup chat">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="chat-messages" id="chat-messages">
+          <div class="message bot-message">
+            <div class="message-avatar">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="message-content">
+              <p>Halo! Saya Codex AI. Ada yang bisa saya bantu? 😊</p>
+              <span class="message-time">Baru saja</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-input-area">
+          <div class="chat-input-wrapper">
+            <input 
+              type="text" 
+              id="chat-input" 
+              class="chat-input" 
+              placeholder="Tulis pesan..." 
+              autocomplete="off"
+            />
+            <button class="chat-send" id="chat-send" aria-label="Kirim pesan">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+          <div class="chat-suggestions">
+            <button class="suggestion-chip" data-text="Halo">👋 Halo</button>
+            <button class="suggestion-chip" data-text="Siapa kamu?">❓ Siapa kamu?</button>
+            <button class="suggestion-chip" data-text="Bantu saya">🆘 Bantu saya</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
