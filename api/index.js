@@ -25,7 +25,7 @@ const publicPath = fs.existsSync(path.resolve(__dirname, "../public/Frontend"))
 app.use(express.static(publicPath));
 
 // guestbook file in project root
-const guestbookFile = path.resolve(__dirname, "../guestbook.json");
+const guestbookFile = path.resolve(__dirname, "../guestbook");
 
 function readGuestbook() {
   try {
