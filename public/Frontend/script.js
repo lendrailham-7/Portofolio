@@ -97,7 +97,7 @@ function initChatWidget() {
         
         // Call API
         try {
-            const res = await fetch(`http://localhost:5000/chat?prompt=${encodeURIComponent(text)}`);
+            const res = await fetch(`/chat?prompt=${encodeURIComponent(text)}`);
             const json = await res.json();
             
             let content = json?.message?.content ?? "Maaf, saya tidak mengerti.";
@@ -237,7 +237,7 @@ function renderMessages(messages) {
 
 async function loadProfile() {
   try {
-    const res = await fetch("profile");
+    const res = await fetch("/profile");
     const json = await res.json();
 
     const p = json?.data?.profile;
@@ -259,7 +259,7 @@ async function loadProfile() {
 
 async function loadGuestbook() {
   try {
-    const res = await fetch("guestbook");
+    const res = await fetch("/guestbook");
     const json = await res.json();
     renderMessages(json.data || []);
   } catch (err) {
@@ -275,7 +275,7 @@ async function submitGuestbook(e) {
   if (!name || !message) return;
 
   try {
-    const res = await fetch("guestbook", {
+    const res = await fetch("/guestbook", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, message }),
