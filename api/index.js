@@ -1,21 +1,46 @@
-const express = require("express");
-const cors = require("cors");
-const { createClient } = require("@supabase/supabase-js");
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import { fileURLToPath } from "url";
+import { createClient } from "@supabase/supabase-js";
+
+dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Ambil dari environment variables (Vercel)
+// ===============================
+// SUPABASE CONNECTION
+// ===============================
 const supabase = createClient(
   process.env.SUPABASE_URL,
   process.env.SUPABASE_KEY
 );
 
 // ===============================
-// GET - Ambil semua guestbook
+// PATH HELPER
 // ===============================
-app.get("/api/guestbook", async (req, res) => {
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// ===============================
+// STATIC FILES
+// ===============================
+const publicPath = fs.existsSync(path.resolve(__dirname, "../public/Frontend"))
+  ? path.resolve(__dirname, "../public/Frontend")
+  : path.resolve(__dirname, "../public");
+
+app.use(express.static(publicPath));
+
+// ===============================
+// GUESTBOOK ROUTES (SUPABASE)
+// ===============================
+
+// GET ALL
+app.get("/guestbook", async (req, res) => {
   try {
     const { data, error } = await supabase
       .from("guestbook")
@@ -24,21 +49,28 @@ app.get("/api/guestbook", async (req, res) => {
 
     if (error) throw error;
 
-    res.json(data);
+    res.json({
+      status: "success",
+      data,
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
   }
 });
 
-// ===============================
-// POST - Tambah guestbook
-// ===============================
-app.post("/api/guestbook", async (req, res) => {
+// POST
+app.post("/guestbook", async (req, res) => {
   try {
     const { name, message } = req.body;
 
     if (!name || !message) {
-      return res.status(400).json({ error: "Name dan message wajib diisi" });
+      return res.status(400).json({
+        status: "error",
+        message: "Name dan message wajib diisi",
+      });
     }
 
     const { data, error } = await supabase
@@ -48,13 +80,39 @@ app.post("/api/guestbook", async (req, res) => {
 
     if (error) throw error;
 
-    res.status(201).json(data[0]);
+    res.status(201).json({
+      status: "success",
+      data: data[0],
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({
+      status: "error",
+      message: err.message,
+    });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+// ===============================
+// SPA FALLBACK
+// ===============================
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(publicPath, "index.html"));
 });
+
+// ===============================
+// LOCAL DEV SERVER
+// ===============================
+const isDirectRun =
+  process.argv[1] && path.resolve(process.argv[1]) === __filename;
+
+if (isDirectRun && !process.env.VERCEL) {
+  const port = Number(process.env.PORT) || 3000;
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
+
+// ===============================
+// EXPORT FOR VERCEL
+// ===============================
+export default app;
